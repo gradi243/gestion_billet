@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetterie Concerts - Accueil</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for a clean, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA; /* Light grey background */
+            color: #343A40; /* Dark text */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Custom scrollbar for a touch of style */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFD700; /* Yellow */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e6c200; /* Darker yellow on hover */
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background-color: #000000; /* Black */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .navbar-brand-custom {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #FFD700 !important; /* Yellow */
+            display: flex;
+            align-items: center;
+        }
+        .navbar-brand-custom i {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+        .nav-link-custom {
+            color: #FFFFFF !important; /* White */
+            font-weight: 600;
+            margin-left: 1.5rem; /* Tailwind ml-6 */
+            padding: 0.5rem 1rem; /* Tailwind py-2 px-4 */
+            border-radius: 0.375rem; /* Tailwind rounded-md */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-link-custom:hover,
+        .nav-link-custom.active {
+            background-color: #333333; /* Darker black on hover */
+            color: #FFD700 !important; /* Yellow */
+        }
+        .navbar-toggler-custom {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .navbar-toggler-icon-custom {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Header (Hero Section) */
+        .hero-section {
+            background: linear-gradient(to right, #000000, #333333); /* Black to dark grey gradient */
+            color: #FFFFFF; /* White text */
+            padding: 80px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #FFD700; /* Yellow */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .hero-section p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #E0E0E0;
+        }
+
+        /* Main Content - Concert Divs */
+        .concert-section {
+            padding: 50px 0;
+            flex-grow: 1;
+        }
+        .concert-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #000000; /* Black */
+            text-align: center;
+            position: relative;
+        }
+        .concert-section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #FFD700; /* Yellow accent */
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .concert-item {
+            background-color: #FFFFFF; /* White background */
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Ensures rounded corners apply to image */
+        }
+        .concert-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .concert-item img {
+            width: 100%;
+            height: 220px; /* Fixed height for images */
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .concert-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .concert-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000; /* Black */
+            margin-bottom: 0.75rem;
+        }
+        .concert-artist {
+            font-size: 1.25rem;
+            color: #FFD700; /* Yellow */
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .concert-info {
+            font-size: 1rem;
+            color: #555555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .concert-info i {
+            color: #FFD700; /* Yellow icons */
+            margin-right: 0.5rem;
+        }
+        .concert-footer {
+            background-color: #F8F9FA; /* Light grey footer background */
+            border-top: 1px solid #EEEEEE;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .concert-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #28A745; /* Green for price */
+        }
+        .btn-details-custom {
+            background-color: #000000; /* Black button */
+            color: #FFD700; /* Yellow text */
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* Full rounded */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn-details-custom:hover {
+            background-color: #333333; /* Darker black on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal Styles (using Bootstrap's modal classes, but custom colors) */
+        .modal-header-custom {
+            background-color: #000000; /* Black */
+            color: #FFD700; /* Yellow */
+            border-bottom: none;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+        .modal-title-custom {
+            font-weight: 700;
+            font-size: 1.75rem;
+        }
+        .modal-body-custom strong {
+            color: #000000; /* Black for labels */
+        }
+        .modal-body-custom p {
+            margin-bottom: 0.5rem;
+        }
+        .modal-body-custom .description-full {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #EEEEEE;
+        }
+        .modal-footer-custom {
+            border-top: 1px solid #EEEEEE;
+        }
+        .btn-buy-ticket-custom {
+            background-color: #28A745; /* Green */
+            color: #FFFFFF;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-buy-ticket-custom:hover {
+            background-color: #218838;
+        }
+        .btn-close-custom {
+            filter: invert(1) grayscale(100%) brightness(200%); /* White close button */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000; /* Black */
+            color: #FFFFFF;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+        footer .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        footer .social-icons img {
+            width: 30px;
+            height: 30px;
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(285deg) brightness(100%) contrast(100%); /* Makes them white */
+            transition: transform 0.2s ease;
+        }
+        footer .social-icons img:hover {
+            transform: scale(1.1);
+            filter: invert(80%) sepia(100%) saturate(2000%) hue-rotate(30deg) brightness(100%) contrast(100%); /* Yellow on hover */
+        }
+        footer p {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive adjustments for Bootstrap modal (still need Bootstrap JS) */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            .concert-section h2 {
+                font-size: 2.2rem;
+            }
+            .concert-title {
+                font-size: 1.5rem;
+            }
+            .concert-artist {
+                font-size: 1.1rem;
+            }
+            .concert-price {
+                font-size: 1.3rem;
+            }
+            .btn-details-custom {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            .concert-section h2 {
+                font-size: 2rem;
+            }
+            .concert-content {
+                padding: 1.5rem;
+            }
+            .concert-footer {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="navbar-custom fixed w-full z-10">
+        <div class="container mx-auto flex flex-wrap items-center justify-between p-4">
+            <a class="navbar-brand-custom" href="#">
+                <i class="bi bi-ticket-perforated-fill"></i> Billetterie Concerts
+            </a>
+            <button class="navbar-toggler-custom block lg:hidden" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon-custom"></span>
+            </button>
+            <div class="hidden lg:flex flex-grow items-center justify-end" id="navbarNav">
+                <ul class="flex flex-col lg:flex-row lg:space-x-4 mt-4 lg:mt-0">
+                    <li><a class="nav-link-custom active" aria-current="page" href="#">Accueil</a></li>
+                    <li><a class="nav-link-custom" href="#">Concerts</a></li>
+                    <li><a class="nav-link-custom" href="#">Contact</a></li>
+                    <li><a class="nav-link-custom" href="#se-connecter">Se connecter</a></li>
+                    <li><a class="nav-link-custom" href="#creer-compte">Créer compte</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header (Hero Section) -->
+    <header class="hero-section pt-24">
+        <h1>Trouvez votre prochain concert !</h1>
+        <p>Découvrez les meilleurs événements musicaux et réservez vos billets en toute simplicité pour des moments inoubliables.</p>
+    </header>
+
+    <!-- Main Content - Concerts Section -->
+    <section class="container mx-auto concert-section">
+        <h2>Concerts à venir</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Exemple de Concert 1 -->
+            <div class="concert-item">
+                <img src="https://placehold.co/600x400/FFD700/000000?text=Concert+Pop" alt="Image du concert de Pop Star" class="rounded-t-lg">
+                <div class="concert-content">
+                    <h3 class="concert-title">La Nuit des Étoiles</h3>
+                    <h4 class="concert-artist">Pop Star</h4>
+                    <p class="concert-info">
+                        <i class="bi bi-calendar-event"></i> 20/08/2025 à 20:00<br>
+                        <i class="bi bi-geo-alt-fill"></i> Zénith de Paris<br>
+                        <i class="bi bi-ticket-fill"></i> Places disponibles: 1 500
+                    </p>
+                </div>
+                <div class="concert-footer">
+                    <span class="concert-price">50,00 $</span>
+                    <button type="button" class="btn-details-custom" data-bs-toggle="modal" data-bs-target="#concertDetailModal" data-id="1">
+                        Voir Détails
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exemple de Concert 2 -->
+            <div class="concert-item">
+                <img src="https://placehold.co/600x400/000000/FFD700?text=Festival+Rock" alt="Image du concert de Rock Legends" class="rounded-t-lg">
+                <div class="concert-content">
+                    <h3 class="concert-title">Festival Rock Éternel</h3>
+                    <h4 class="concert-artist">Rock Legends</h4>
+                    <p class="concert-info">
+                        <i class="bi bi-calendar-event"></i> 05/09/2025 à 18:30<br>
+                        <i class="bi bi-geo-alt-fill"></i> Stade de France<br>
+                        <i class="bi bi-ticket-fill"></i> Places disponibles: 5 000
+                    </p>
+                </div>
+                <div class="concert-footer">
+                    <span class="concert-price">75,50 $</span>
+                    <button type="button" class="btn-details-custom" data-bs-toggle="modal" data-bs-target="#concertDetailModal" data-id="2">
+                        Voir Détails
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exemple de Concert 3 -->
+            <div class="concert-item">
+                <img src="https://placehold.co/600x400/FFFFFF/000000?text=Concert+Jazz" alt="Image du concert de Jazz Ensemble" class="rounded-t-lg">
+                <div class="concert-content">
+                    <h3 class="concert-title">Soirée Jazz Harmonique</h3>
+                    <h4 class="concert-artist">Jazz Ensemble</h4>
+                    <p class="concert-info">
+                        <i class="bi bi-calendar-event"></i> 12/10/2025 à 19:00<br>
+                        <i class="bi bi-geo-alt-fill"></i> L'Olympia<br>
+                        <i class="bi bi-ticket-fill"></i> Places disponibles: 300
+                    </p>
+                </div>
+                <div class="concert-footer">
+                    <span class="concert-price">40,00 $</span>
+                    <button type="button" class="btn-details-custom" data-bs-toggle="modal" data-bs-target="#concertDetailModal" data-id="3">
+                        Voir Détails
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exemple de Concert 4 -->
+            <div class="concert-item">
+                <img src="https://placehold.co/600x400/FFD700/000000?text=Concert+Electro" alt="Image du concert de DJ Beat" class="rounded-t-lg">
+                <div class="concert-content">
+                    <h3 class="concert-title">Electro Vibes Night</h3>
+                    <h4 class="concert-artist">DJ Beat</h4>
+                    <p class="concert-info">
+                        <i class="bi bi-calendar-event"></i> 25/11/2025 à 22:00<br>
+                        <i class="bi bi-geo-alt-fill"></i> Le Transbordeur<br>
+                        <i class="bi bi-ticket-fill"></i> Places disponibles: 800
+                    </p>
+                </div>
+                <div class="concert-footer">
+                    <span class="concert-price">35,00 $</span>
+                    <button type="button" class="btn-details-custom" data-bs-toggle="modal" data-bs-target="#concertDetailModal" data-id="4">
+                        Voir Détails
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exemple de Concert 5 -->
+            <div class="concert-item">
+                <img src="https://placehold.co/600x400/000000/FFD700?text=Concert+Classique" alt="Image du concert de Orchestre Philharmonique" class="rounded-t-lg">
+                <div class="concert-content">
+                    <h3 class="concert-title">Symphonie d'Hiver</h3>
+                    <h4 class="concert-artist">Orchestre Philharmonique</h4>
+                    <p class="concert-info">
+                        <i class="bi bi-calendar-event"></i> 10/12/2025 à 19:30<br>
+                        <i class="bi bi-geo-alt-fill"></i> Philharmonie de Paris<br>
+                        <i class="bi bi-ticket-fill"></i> Places disponibles: 600
+                    </p>
+                </div>
+                <div class="concert-footer">
+                    <span class="concert-price">90,00 $</span>
+                    <button type="button" class="btn-details-custom" data-bs-toggle="modal" data-bs-target="#concertDetailModal" data-id="5">
+                        Voir Détails
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exemple de Concert 6 -->
+            <div class="concert-item">
+                <img src="https://placehold.co/600x400/FFFFFF/000000?text=Concert+Rap" alt="Image du concert de Flow Master" class="rounded-t-lg">
+                <div class="concert-content">
+                    <h3 class="concert-title">Rap Fusion Live</h3>
+                    <h4 class="concert-artist">Flow Master</h4>
+                    <p class="concert-info">
+                        <i class="bi bi-calendar-event"></i> 15/01/2026 à 21:00<br>
+                        <i class="bi bi-geo-alt-fill"></i> Le Bataclan<br>
+                        <i class="bi bi-ticket-fill"></i> Places disponibles: 450
+                    </p>
+                </div>
+                <div class="concert-footer">
+                    <span class="concert-price">45,00 $</span>
+                    <button type="button" class="btn-details-custom" data-bs-toggle="modal" data-bs-target="#concertDetailModal" data-id="6">
+                        Voir Détails
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4">
+        <div class="container mx-auto">
+            <div class="mb-2 text-gray-300">Suivez-nous :</div>
+            <div class="social-icons flex justify-center mb-4">
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2048px-WhatsApp.svg.png" alt="WhatsApp"></a>
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/512px-Gmail_icon_%282020%29.svg.png" alt="Gmail"></a>
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png" alt="Facebook"></a>
+            </div>
+            <p class="mt-3 text-gray-400">&copy; 2025 Billetterie Concerts - Tous droits réservés.</p>
+            <p class="text-gray-400">Développé par [Votre Nom/Équipe]</p>
+        </div>
+    </footer>
+
+    <!-- Modal pour les détails du concert (Requires Bootstrap JS for functionality) -->
+    <div class="modal fade" id="concertDetailModal" tabindex="-1" aria-labelledby="concertDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-xl shadow-lg">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom" id="concertDetailModalLabel">Détails du Concert</h5>
+                    <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-body-custom p-6">
+                    <!-- Le contenu sera chargé ici par JavaScript -->
+                    <div id="modalContentLoader" class="text-center my-5">
+                        <div class="spinner-border text-yellow-500" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-2 text-gray-600">Chargement des détails...</p>
+                    </div>
+                    <div id="modalConcertDetails" style="display:none;">
+                        <!-- Les détails du concert seront insérés ici -->
+                        <h4 id="modalConcertName" class="text-2xl font-bold mb-2 text-black"></h4>
+                        <p class="text-lg"><strong>Artiste:</strong> <span id="modalArtist" class="text-gray-700"></span></p>
+                        <p class="text-lg"><strong>Date & Heure:</strong> <span id="modalDateTime" class="text-gray-700"></span></p>
+                        <p class="text-lg"><strong>Lieu:</strong> <span id="modalLocation" class="text-gray-700"></span></p>
+                        <p class="text-lg"><strong>Prix Standard:</strong> <span id="modalPrice" class="text-green-600 font-semibold"></span> $</p>
+                        <p class="text-lg"><strong>Places Disponibles:</strong> <span id="modalAvailableSeats" class="text-gray-700"></span></p>
+                        <p class="description-full text-gray-800"><strong>Description:</strong> <span id="modalDescription"></span></p>
+                        <img id="modalImage" src="" alt="Image du concert" class="img-fluid rounded-lg mt-4 w-full h-auto max-h-64 object-cover">
+                    </div>
+                </div>
+                <div class="modal-footer modal-footer-custom p-4">
+                    <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-300" data-bs-dismiss="modal">Fermer</button>
+                    <a href="#" id="buyTicketLink" class="btn-buy-ticket-custom py-2 px-4 rounded-full">Acheter des billets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS (includes Popper) - Required for modal functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const concertDetailModal = document.getElementById('concertDetailModal');
+            const modalContentLoader = document.getElementById('modalContentLoader');
+            const modalConcertDetails = document.getElementById('modalConcertDetails');
+            const modalConcertName = document.getElementById('modalConcertName');
+            const modalArtist = document.getElementById('modalArtist');
+            const modalDateTime = document.getElementById('modalDateTime');
+            const modalLocation = document.getElementById('modalLocation');
+            const modalPrice = document.getElementById('modalPrice');
+            const modalAvailableSeats = document.getElementById('modalAvailableSeats');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalImage = document.getElementById('modalImage');
+            const buyTicketLink = document.getElementById('buyTicketLink');
+
+            concertDetailModal.addEventListener('show.bs.modal', function (event) {
+                // Get the button that triggered the modal
+                const button = event.relatedTarget;
+                // Extract concert ID from data-id attribute
+                const concertId = button.getAttribute('data-id');
+
+                // Show loader and hide details
+                modalContentLoader.style.display = 'block';
+                modalConcertDetails.style.display = 'none';
+
+                // Make an AJAX request to get concert details
+                // NOTE: This fetch will only work if get_concert_details.php is available and configured
+                // For a pure HTML page, you would typically hardcode these details or use a client-side routing library.
+                fetch(`get_concert_details.php?id=${concertId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const concert = data.data;
+                            modalConcertName.textContent = concert.nom_concert;
+                            modalArtist.textContent = concert.artiste;
+                            modalDateTime.textContent = concert.date_concert_formatted;
+                            modalLocation.textContent = concert.lieu;
+                            modalPrice.textContent = parseFloat(concert.prix_standard).toFixed(2).replace('.', ',');
+                            modalAvailableSeats.textContent = concert.places_disponibles;
+                            modalDescription.textContent = concert.description;
+                            modalImage.src = concert.image_url;
+                            modalImage.alt = `Image du concert de ${concert.artiste}`;
+
+                            // Update the "Buy Tickets" link (to a real purchase page)
+                            buyTicketLink.href = `acheter_billet.php?concert_id=${concert.id}`;
+
+                            // Hide loader and show details
+                            modalContentLoader.style.display = 'none';
+                            modalConcertDetails.style.display = 'block';
+                        } else {
+                            // Handle error if concert not found or PHP script failed
+                            modalConcertName.textContent = "Erreur";
+                            modalArtist.textContent = "";
+                            modalDateTime.textContent = "";
+                            modalLocation.textContent = "";
+                            modalPrice.textContent = "";
+                            modalAvailableSeats.textContent = "";
+                            modalDescription.textContent = data.message || "Impossible de charger les détails du concert. (Assurez-vous que get_concert_details.php est configuré)";
+                            modalImage.src = ""; // Clear image
+                            modalImage.alt = "";
+
+                            modalContentLoader.style.display = 'none';
+                            modalConcertDetails.style.display = 'block'; // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des détails du concert:', error);
+                        modalConcertName.textContent = "Erreur de connexion";
+                        modalArtist.textContent = "";
+                        modalDateTime.textContent = "";
+                        modalLocation.textContent = "";
+                        modalPrice.textContent = "";
+                        modalAvailableSeats.textContent = "";
+                        modalDescription.textContent = "Une erreur est survenue lors du chargement des détails. (Vérifiez votre connexion ou le script PHP)";
+                        modalImage.src = "";
+                        modalImage.alt = "";
+
+                        modalContentLoader.style.display = 'none';
+                        modalConcertDetails.style.display = 'block'; // Show error message
+                    });
+            });
+
+            // Toggle Navbar for mobile (Tailwind + Bootstrap collapse)
+            const navbarToggler = document.querySelector('[data-bs-toggle="collapse"]');
+            const navbarNav = document.getElementById('navbarNav');
+
+            if (navbarToggler && navbarNav) {
+                navbarToggler.addEventListener('click', () => {
+                    navbarNav.classList.toggle('hidden');
+                    navbarNav.classList.toggle('flex');
+                    navbarNav.classList.toggle('flex-col');
+                    navbarNav.classList.toggle('lg:flex-row');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
